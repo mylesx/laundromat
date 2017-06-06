@@ -60,7 +60,7 @@ contract Laundromat {
     address private owner;
     bool private atomicLock;
     
-    address internal constant arithAddress = 0x600ad7b57f3e6aeee53acb8704a5ed50b60cacd6;
+    address internal constant arithAddress = 0x44247eab7f2feaa07ad6de38d1fb890e20d7733b;
     ArithLib private arithContract;
     mapping (uint => WithdrawInfo) private withdraws;
     mapping (uint => bool) private consumed;
@@ -128,7 +128,7 @@ contract Laundromat {
     function withdrawStep() {
         WithdrawInfo withdraw = withdraws[uint(msg.sender)];
 
-        //throw if existing witdhraw not started
+        //throw if existing withdraw not started
         if(withdraw.step < 1) throw;
         if(withdraw.step > participants) throw;
         if(consumed[uint(sha3([withdraw.Ix, withdraw.Iy]))]) throw;

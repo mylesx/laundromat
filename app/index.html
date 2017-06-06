@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="css/bootstrap.min.css">
 
   <!-- Superhero Bootstrap theme -->
-  <link href="css/superhero.bootstrap.min.css" rel="stylesheet">  
+  <link href="css/cyborg.bootstrap.min.css" rel="stylesheet">  
 
   <style type="text/css" media="screen">
     @media screen {
@@ -48,7 +48,7 @@ function init() {
   } else {
     console.log('No web3? You should consider trying MetaMask!')
     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8546"));
     isGeth = true;
   }
 
@@ -60,6 +60,16 @@ function init() {
     document.getElementById('myaddress').style.display = 'none';
   }
 }
+
+// DEBUGGING PURPOSES
+function onContentLoaded() {
+  var accountSpan = document.getElementById("account");
+  accountSpan.innerHTML =
+
+    (typeof web3 === "undefined" ? "undefined" : web3.eth.accounts[0]);
+}
+document.addEventListener("DOMContentLoaded", onContentLoaded);
+// END DEBUGGING
 
 function statusCallback(data) {
 
@@ -89,7 +99,7 @@ function depositStart() {
     myaddress = document.getElementById('myaddress').value;
   } else {
 
-    myaddress = web3.eth.accounts[0];
+    myaddress = web3.eth.accounts[0]; //remove the [0] for status
   }
 
   deposit(document.getElementById('address').value, myaddress, document.getElementById('privateResult').value, depositCallback);
@@ -150,6 +160,7 @@ function depositCallback(data) {
       <h3 class="panel-title">Private Key</h3>
     </div>
     <div class="panel-body">
+      <p>Web3 account: <span id="account"></span></p>
       <p>A private key is necessary to participate in a mixing contract. Click "Generate" to generate a private key, and then <i>write it down</i>. If you lose your private key, you will not be able to recover your Ether after mixing.</p>
       <form>
         <div class="input-group">

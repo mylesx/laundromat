@@ -4209,7 +4209,7 @@ if (typeof window !== 'undefined' && window.XMLHttpRequest) {
  * HttpProvider should be used to send rpc calls over http
  */
 var HttpProvider = function (host) {
-    this.host = host || 'http://localhost:8545';
+    this.host = host || 'http://localhost:8546';
 };
 
 /**
